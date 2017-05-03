@@ -1,0 +1,35 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres:9.6-alpine"
+    hostname: postgres
+    domainname: localdomain
+    ports:
+      - "5432:5432"
+    volumes:
+       - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=datastore_pass
+      - POSTGRES_USER=mir
+
+  solr:
+    build: docker/solr
+    hostname: solr
+    domainname: localdomain
+    ports:
+      - "8983:8983"
+    volumes:
+      - ./data/solr:/opt/solr/server/solr/mir/data
+
+  tomcat:
+    image: "tomcat:8.5-alpine"
+    hostname: mir
+    domainname: localdomain
+    ports:
+      - "8291:8080"
+    depends_on:
+      - solr
+      - postgres
+    volumes:
+      - ./data/mir:/root/.mycore/mir
+      - ./mir.war:/usr/local/tomcat/webapps/mir.war
