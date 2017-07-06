@@ -1,4 +1,4 @@
-FROM solr:6.5-alpine
+FROM solr:6.6-alpine
 
 # Enviroment
 ENV SOLR_CORE mir

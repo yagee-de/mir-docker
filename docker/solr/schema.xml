@@ -146,6 +146,8 @@
     <!-- MCRObject structure -->
     <field name="derivates" type="string" multiValued="true" />
     <field name="derCount" type="int" />
+    <field name="worldReadable" type="boolean" />
+    <field name="worldReadableComplete" type="boolean" />
 
     <!-- ignore all undefined fields -->
     <dynamicField name="*" type="ignored" />
@@ -178,7 +180,7 @@
     <field name="text_wc" type="text_wc" />
 
     <!-- default search fields -->
-    <field name="allMeta" type="text_general" multiValued="true" stored="false" />
+    <field name="allMeta" type="text_general" stored="false" />
     <field name="search_result_link_text" type="text_de" indexed="false"/>
 
     <!-- mycore-mods -->
