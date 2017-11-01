@@ -275,8 +275,6 @@
    <copyField source="includes" dest="text"/>
    <copyField source="manu" dest="manu_exact"/>
   -->
-   <!-- Copy the price into a currency enabled field (default USD) -->
-   <copyField source="price" dest="price_c"/>
 
    <!-- Text fields from SolrCell to search by default in our catch-all field -->
   <!--
@@ -681,20 +679,6 @@
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
                geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" />
-
-    <!-- Money/currency field type. See http://wiki.apache.org/solr/MoneyFieldType
-        Parameters:
-          defaultCurrency: Specifies the default currency if none specified. Defaults to "USD"
-          precisionStep:   Specifies the precisionStep for the TrieLong field used for the amount
-          providerClass:   Lets you plug in other exchange provider backend:
-                           solr.FileExchangeRateProvider is the default and takes one parameter:
-                             currencyConfig: name of an xml file holding exchange rates
-                           solr.OpenExchangeRatesOrgProvider uses rates from openexchangerates.org:
-                             ratesFileLocation: URL or path to rates JSON file (default latest.json on the web)
-                             refreshInterval: Number of minutes between each rates fetch (default: 1440, min: 60)
-    -->
-    <fieldType name="currency" class="solr.CurrencyField" precisionStep="8" defaultCurrency="USD" currencyConfig="currency.xml" />
-             
 
 
     <!-- some examples for different languages (generally ordered by ISO code) -->

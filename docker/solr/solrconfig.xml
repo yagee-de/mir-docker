@@ -35,7 +35,7 @@
        that you fully re-index after changing this setting as it can
        affect both how text is indexed and queried.
   -->
-  <luceneMatchVersion>6.5.1</luceneMatchVersion>
+  <luceneMatchVersion>7.1</luceneMatchVersion>
 
   <!-- <lib/> directives can be used to instruct Solr to load any Jars
        identified and use them to resolve any "plugins" specified in
@@ -844,6 +844,12 @@
     </lst>
   </initParams>
 
+  <initParams path="/select,/find,/mods_name,/mods_nameIdentifier,/parent,/personindexp,/personindex,/oai_search">
+    <lst name="defaults">
+      <str name="wt">xml</str>
+    </lst>
+  </initParams>
+
   <!-- This enabled schemaless mode 
   <initParams path="/update/**">
     <lst name="defaults">
@@ -1045,30 +1051,6 @@
     </arr>
   </requestHandler>
 
-
-  <!-- Query Elevation Component
-
-       http://wiki.apache.org/solr/QueryElevationComponent
-
-       a search component that enables you to configure the top
-       results for a given query regardless of the normal lucene
-       scoring.
-    -->
-  <searchComponent name="elevator" class="solr.QueryElevationComponent" >
-    <!-- pick a fieldType to analyze queries -->
-    <str name="queryFieldType">string</str>
-    <str name="config-file">elevate.xml</str>
-  </searchComponent>
-
-  <!-- A request handler for demonstrating the elevator component -->
-  <requestHandler name="/elevate" class="solr.SearchHandler" startup="lazy">
-    <lst name="defaults">
-      <str name="echoParams">explicit</str>
-    </lst>
-    <arr name="last-components">
-      <str>elevator</str>
-    </arr>
-  </requestHandler>
 
   <!-- Highlighting Component
 
@@ -1445,12 +1427,14 @@
     </lst>
     <lst name="appends">
       <!-- filter query: search only in published mods objects-->
-      <str name="fq1">state:published OR {!v=$owner}</str>
-    <str name="qf1">id^100 mods.gnd^100 mods.identifier^100 isbn^100 mods.title^80 mods.author^40 mods.publisher^30 mods.name^30 mods.abstract^10 mods.place^5 allMeta^0.002</str>
-    <str name="fq2">{!join from=returnId to=id}*:*</str>
+      <str name="fq">objectType:mods</str>
+      <str name="fq">state:published OR {!v=$owner}</str>
+      <str name="qf1">id^100 mods.gnd^100 mods.identifier^100 isbn^100 mods.title^80 mods.author^40 mods.publisher^30 mods.name^30 mods.abstract^10 mods.place^5 allMeta^0.002</str>
+      <str name="fq2">{!join from=returnId to=id}*:*</str>
       <str name="qf2">content</str>
       <str name="facet">true</str>
-      <str name="facet.field">mods.type</str>
+      <str name="facet.field">mods.genre</str>
+      <str name="facet.field">worldReadableComplete</str>
       <str name="facet.mincount">1</str>
     </lst>
     <lst name="invariants">

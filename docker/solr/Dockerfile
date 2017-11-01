@@ -1,4 +1,4 @@
-FROM solr:6.6-alpine
+FROM solr:7.1-alpine
 
 # Enviroment
 ENV SOLR_CORE mir
@@ -10,7 +10,7 @@ USER $SOLR_USER
 RUN mkdir -p /opt/solr/server/solr/$SOLR_CORE/conf /opt/solr/server/solr/$SOLR_CORE/data
 
 WORKDIR /opt/solr/server/solr/$SOLR_CORE/conf
-RUN find ../../configsets/basic_configs/conf -maxdepth 1 ! -name managed-schema -exec ln -sfn {} ./ +
+RUN find ../../configsets/_default/conf -maxdepth 1 ! -name managed-schema -exec ln -sfn {} ./ +
 
 # Adding Files
 COPY \
