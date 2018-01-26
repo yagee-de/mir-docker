@@ -1,0 +1,3 @@
+[submodule "mir-solr"]
+	path = docker/solr/mir
+	url = ../../MyCoRe-Org/mir-solr.git
