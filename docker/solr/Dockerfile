@@ -10,7 +10,7 @@ USER $SOLR_USER
 RUN mkdir -p /opt/solr/server/solr/$SOLR_CORE/conf /opt/solr/server/solr/$SOLR_CORE/data
 
 WORKDIR /opt/solr/server/solr/$SOLR_CORE
-COPY mir/* ./ 
+COPY mir ./ 
 
 # Giving ownership to Solr
 USER root
